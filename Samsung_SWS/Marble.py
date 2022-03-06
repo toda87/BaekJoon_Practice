@@ -25,9 +25,9 @@ def init():
 
 # Ball moves towards a direction until it finds a hole or it hits a wall
 def move(_x, _y, _dx, _dy, _c):
-    while a[_x + dx][_y + _dy] != '#' and a[_x][_y] != 0:
-        _x += dx
-        _y += dy
+    while a[_x + _dx][_y + _dy] != '#' and a[_x][_y] != 0:
+        _x += _dx
+        _y += _dy
         _c += 1
     return _x, _y, _c
 
