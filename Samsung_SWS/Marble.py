@@ -24,25 +24,26 @@ def init():
 
 
 # Ball moves towards a direction until it finds a hole or it hits a wall
-def move(_x, _y, _dx, _dy, _c):
-    while a[_x + _dx][_y + _dy] != '#' and a[_x][_y] != 0:
+def move(_x, _y, _dx, _dy):
+    ctr = 0
+    while a[_x + _dx][_y + _dy] != '#' and a[_x][_y] != 'O':
         _x += _dx
         _y += _dy
-        _c += 1
-    return _x, _y, _c
+        ctr += 1
+    return _x, _y, ctr
 
 
 def bfs():
     while q:
         rx, ry, bx, by, d = q.popleft()
-        if d >= 10:
+        if d > 10:
             break
 
         # For all directions
         for i in range(4):
             # Calculate the coordinate after movement and the distance it travelled
-            nrx, nry, rc = move(rx, ry, dx[i], dy[i], 0)
-            nbx, nby, bc = move(bx, by, dx[i], dy[i], 0)
+            nrx, nry, rc = move(rx, ry, dx[i], dy[i])
+            nbx, nby, bc = move(bx, by, dx[i], dy[i])
 
             # If blue ball falls into the hole
             if a[nbx][nby] == 'O':
@@ -50,7 +51,7 @@ def bfs():
 
             # If red ball falls into the hole
             if a[nrx][nry] == 'O':
-                print(1)
+                print(d+1)
                 return
 
             # If two balls are at the same location
@@ -64,7 +65,7 @@ def bfs():
             if not check[nrx][nry][nbx][nby]:
                 check[nrx][nry][nbx][nby] = True
                 q.append((nrx, nry, nbx, nby, d + 1))
-    print(0)
+    print(-1)
 
 
 init()
